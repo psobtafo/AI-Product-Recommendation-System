@@ -6,8 +6,12 @@ myapp/saved_models/
 *.tar
 *.tar.gz
 *.sqlite3
+train_model.py
 __pycache__/
 *.log
+*.ipynb
+*.csv
+*.pkl
 .DS_Store
 
 
