@@ -1,0 +1,13 @@
+myapp/saved_models/
+*.h5
+*.pkl
+*.pt
+*.zip
+*.tar
+*.tar.gz
+*.sqlite3
+__pycache__/
+*.log
+.DS_Store
+
+
