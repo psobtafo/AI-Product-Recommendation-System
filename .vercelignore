@@ -13,5 +13,8 @@ __pycache__/
 *.csv
 *.pkl
 .DS_Store
-
+# Ignore these root-level folders
+mizan_recommendation/
+mustafa_repo/
+my_app/
 
