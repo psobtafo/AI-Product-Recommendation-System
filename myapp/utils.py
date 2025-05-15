@@ -1,19 +1,28 @@
 # myapp/utils.py
 import tensorflow as tf
 from tensorflow import keras
-from django.conf import settings
-import os
+import tempfile
+import requests
 
 _model = None
+
+# Replaced recommendation_model.h5 with S3 URL
+S3_MODEL_URL = "https://<your-bucket-name>.s3.<your-region>.amazonaws.com/recommendation_model.h5"
 
 def load_model():
     global _model
     if _model is None:
-        model_path = os.path.join(settings.BASE_DIR, 'myapp', 'saved_models', 'recommendation_model.h5')
-        _model = keras.models.load_model(
-            model_path,
-            custom_objects={'mse': tf.keras.losses.MeanSquaredError()}
-        )
+        response = requests.get(S3_MODEL_URL)
+        if response.status_code == 200:
+            with tempfile.NamedTemporaryFile(suffix=".h5") as tmp:
+                tmp.write(response.content)
+                tmp.flush()
+                _model = keras.models.load_model(
+                    tmp.name,
+                    custom_objects={'mse': tf.keras.losses.MeanSquaredError()}
+                )
+        else:
+            raise Exception(f"Failed to download model. Status code: {response.status_code}")
     return _model
 
 def preprocess(user_id, user_behavior, context):
