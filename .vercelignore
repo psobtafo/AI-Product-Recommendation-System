@@ -1,4 +1,9 @@
+.git/
+.gitmodules
+.gitattributes
+
 myapp/saved_models/
+*.h5 filter=lfs diff=lfs merge=lfs -text
 *.h5
 *.pkl
 *.pt
