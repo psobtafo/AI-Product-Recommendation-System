@@ -44,6 +44,7 @@ my_app/
 .env
 .env.*
 venv/
+
 env/
 .venv/
 .python-version
